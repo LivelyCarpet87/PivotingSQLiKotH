@@ -1,0 +1,58 @@
+<html>
+  <head>
+  </head>
+  <body>
+    {% if message is defined %}
+    <script>
+      alert("{{message | safe}}");
+    </script>
+    {% endif %}
+    <h1>Best Team</h1>
+    <p>Team {{controlledBy.capitalize()}} is the best team ever.</p>
+    <h1>Device Login</h1>
+    <p>Device ID: {{device}}</p>
+    <form action="/game" method="POST">
+      <input type="hidden" id="path" name="path" value="{{path}}">
+      <input type="hidden" id="action" name="action" value="login">
+      <label for="user">Username: </label>
+      <br>
+      <input type="text" id="user" name="user">
+      <br>
+      <label for="password">Password: </label>
+      <br>
+      <input type="text" id="pass" name="pass">
+      <br>
+      <input type="submit" value="Submit">
+    </form>
+    <p>Note-to-self: My username is {{username}}</p>
+    <h5>Username Filter</h5>
+    <p>{{usernameFilter}}</p>
+    <h5>Password Filter</h5>
+    <p>{{passwordFilter}}</p>
+    <h5>SQL Debug</h5>
+    <p>{{command}}</p>
+
+    {% if queryFilter is defined %}
+    <form action="/game" method="POST">
+      <input type="hidden" id="path" name="path" value="{{path}}">
+      <input type="hidden" id="action" name="action" value="query">
+      <label for="query">Query: </label>
+      <br>
+      <input type="text" id="query" name="query">
+      <br>
+      <input type="submit" value="Search">
+    </form>
+    <h5>Query Filter</h5>
+    <p>{{queryFilter}}</p>
+    {% endif %}
+
+    {% if device == "sp" %}
+    <button id="redirFile" class="float-left submit-button" >Cool File Here</button>
+    <script type="text/javascript">
+        document.getElementById("redirFile").onclick = function () {
+            location.href = "/game?path={{path}}&file=cool.txt";
+        };
+    </script>
+    {% endif %}
+  </body>
+</html>

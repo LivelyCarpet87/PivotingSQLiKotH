@@ -1,0 +1,2 @@
+This is such a cool file right? It is read directly from the file system every time you GET it.
+Yes! I made my own www folder of sorts. 

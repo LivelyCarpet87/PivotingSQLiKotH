@@ -1,0 +1,28 @@
+<html>
+  <head>
+  </head>
+  <body>
+    {% if message is defined %}
+    <script>
+      alert("{{message}}");
+    </script>
+    {% endif %}
+    <h1>Team Login</h1>
+    <form action="/login" method="POST">
+      <label for="user">Username: </label>
+      <br>
+      <input type="text" id="user" name="user">
+      <br>
+      <label for="password">Password: </label>
+      <br>
+      <input type="password" id="password" name="password">
+      <br>
+      <input type="submit" value="Submit">
+    </form>
+    {% if redirect is defined %}
+    <script>
+      window.location.replace("/game");
+    </script>
+    {% endif %}
+  </body>
+</html>

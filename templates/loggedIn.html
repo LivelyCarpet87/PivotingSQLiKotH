@@ -1,0 +1,122 @@
+<html>
+  <head>
+  </head>
+  <body>
+    {% if message is defined %}
+    <script>
+      alert("{{message}}");
+    </script>
+    {% endif %}
+    <h1>Best Team</h1>
+    <p>Team {{controlledBy.capitalize()}} is the best team ever.</p>
+    <h1>Device Info</h1>
+    <p>Device ID: {{device}}</p>
+    <h5>Username</h5>
+    <p>{{username}}</p>
+    <h5>Password</h5>
+    <p>{{password}}</p>
+    <br>
+    <form action="/game" method="POST">
+      <input type="hidden" id="action" name="path" value="{{path}}">
+      <input type="hidden" id="action" name="action" value="regenPassword">
+      <input type="submit" value="Regenerate Password">
+    </form>
+    <br>
+    <h5>Username Filter</h5>
+    <p>{{usernameFilter}}</p>
+    <form action="/game" method="POST">
+      <input type="hidden" id="path" name="path" value="{{path}}">
+      <input type="hidden" id="action" name="action" value="addUserFilter">
+      <label for="item">Add Username Filter: </label>
+      <br>
+      <input type="text" id="item" name="item">
+      <br>
+      <input type="submit" value="Add">
+    </form>
+    <p>You can add only 1 item per takeover, unless your team is the original owner.
+    The longer you remain in control, the more points you get every minute.</p>
+    <form action="/game" method="POST">
+      <input type="hidden" id="path" name="path" value="{{path}}">
+      <input type="hidden" id="action" name="action" value="rmUserFilter">
+      <label for="item">Remove Username Filter: </label>
+      <br>
+      <input type="text" id="item" name="item">
+      <br>
+      <input type="submit" value="Remove">
+    </form>
+    <br>
+    <h5>Password Filter</h5>
+    <p>{{passwordFilter}}</p>
+    <form action="/game" method="POST">
+      <input type="hidden" id="path" name="path" value="{{path}}">
+      <input type="hidden" id="action" name="action" value="addPassFilter">
+      <label for="item">Add Password Filter: </label>
+      <br>
+      <input type="text" id="item" name="item">
+      <br>
+      <input type="submit" value="Add">
+    </form>
+    <p>You can add only 1 item per takeover, unless your team is the original owner.
+    The longer you remain in control, the more points you get every minute.</p>
+    <form action="/game" method="POST">
+      <input type="hidden" id="path" name="path" value="{{path}}">
+      <input type="hidden" id="action" name="action" value="rmPassFilter">
+      <label for="item">Remove Password Filter: </label>
+      <br>
+      <input type="text" id="item" name="item">
+      <br>
+      <input type="submit" value="Remove">
+    </form>
+
+    {% if queryFilter is defined %}
+    <br>
+    <h5>Query Filter</h5>
+    <p>{{queryFilter}}</p>
+    <form action="/game" method="POST">
+      <input type="hidden" id="path" name="path" value="{{path}}">
+      <input type="hidden" id="action" name="action" value="addQueryFilter">
+      <label for="item">Add Query Filter: </label>
+      <br>
+      <input type="text" id="item" name="item">
+      <br>
+      <input type="submit" value="Add">
+    </form>
+    <p>You can add only 1 item per takeover, unless your team is the original owner.
+       Filter items for queries must be longer than 2 characters and are capped at 13 items.
+    The longer you remain in control, the more points you get every minute.</p>
+    <form action="/game" method="POST">
+      <input type="hidden" id="path" name="path" value="{{path}}">
+      <input type="hidden" id="action" name="action" value="rmQueryFilter">
+      <label for="item">Remove Query Filter: </label>
+      <br>
+      <input type="text" id="item" name="item">
+      <br>
+      <input type="submit" value="Remove">
+    </form>
+    <p>Service Enabled: {{queryEnabled}}</p>
+    <form action="/game" method="POST">
+      <input type="hidden" id="path" name="path" value="{{path}}">
+      <input type="hidden" id="action" name="action" value="toggleQuery">
+      <input type="submit" value="Toggle">
+    </form>
+    <p>You can get significantly more points if you leave queries on. Also, the
+      simulated admin will forcibly re-enable it when they notice it is disabled.
+    Keeping it on longer increases detection time. </p>
+    {% endif %}
+
+    {% if redirect is defined %}
+    <script>
+      window.location.replace("/game");
+    </script>
+    {% endif %}
+    <h1>Pivot To</h1>
+    {% for item in pivots %}
+    <form action="/game" method="POST">
+      <input type="hidden" id="action" name="path" value="{{path}}">
+      <input type="hidden" id="action" name="action" value="pivot">
+      <input type="hidden" id="pivotTo" name="pivotTo" value="{{ item }}">
+      <input type="submit" value="Pivot to {{ item }}">
+    </form>
+    {% endfor %}
+  </body>
+</html>
