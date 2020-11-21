@@ -268,7 +268,9 @@ def info():
 	special=data.points["special"],
 	db=data.points["db"],
 	query=data.points["query"],
-	products=data.products.keys())
+	products=data.products.keys(),
+	modifierDivider=data.modifierDivider,
+	scorebotInterval=data.scorebotInterval)
 
 @app.route("/scoreboard",methods=['GET'])
 def scoreboard():
