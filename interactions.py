@@ -62,9 +62,9 @@ def login(device,username,password,user):
 	db.rollback()
 	db.close()
 	if login == 0:
-		if username != data.devices[device]["username"]:
+		if username != data.devices[device]["username"]: #Technically if you bypass this, it is SQL injection
 			data.users[user]["LastLogins"][device][0] = username
-		if password != data.devices[device]["password"]:
+		if password != data.devices[device]["password"]: #Technically if you bypass this, it is SQL injection
 			data.users[user]["LastLogins"][device][1] = password
 		return message, "N/A", 0
 	elif login == 1:
