@@ -1,5 +1,18 @@
 # PivotingSQLiKotH
- A SQL injection king of the hill that requires teams to pivot and coordinate their attacks.
+ A SQL injection king of the hill that requires teams to pivot and coordinate their attacks. It simulates SQL injection, Local File Inclusion, default credentials, and credential leakage.
+
+# Quick Start
+
+Requires some way to serve the flask app. Tested with gunicorn.
+
+1. `cd PiviotingSQLiKotH`
+2. `gunicorn server:app` or `python3 server.py`
+
+The application is not built for multiple threads and WILL break.
+
+# Map
+
+![Game Map](https://raw.githubusercontent.com/LivelyCarpet87/PivotingSQLiKotH/master/static/BWMap.png)
 
 # Customization
 
