@@ -1,3 +1,6 @@
 
 *.pyc
 creds.py
+*.log
+*.log
+serverData.json
