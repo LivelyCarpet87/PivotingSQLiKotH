@@ -6,9 +6,9 @@ import datetime
 
 def login(user,password):
 	if user not in data.users.keys():
-		return None, 2
+		return None, 2, "n"
 	if password != data.users[user]["password"]:
-		return None, 1
+		return None, 1, "n"
 	payload = {
 			'exp': datetime.datetime.utcnow() + datetime.timedelta(days=0, hours=2, seconds=0),
 			'iat': datetime.datetime.utcnow(),
@@ -20,7 +20,7 @@ def login(user,password):
 			data.jwtKey,
 			algorithm='HS256'
 		)
-	return jwtToken, 0
+	return jwtToken, 0, data.users[user]["team"]
 
 def decode_auth_token(auth_token):
 	try:

@@ -158,7 +158,7 @@ def login():
 	if flask.request.method == 'POST':
 		user = request.form["user"]
 		password = request.form["password"]
-		jwtToken, success = validation.login(user,password)
+		jwtToken, success, team = validation.login(user,password)
 		if success == 2:
 			data.log.debug("Nonexistent user "+str(user)+" tried logging in.")
 			return render_template("userLogin.html",message="No such user created. Please contact admins to sign up.")
@@ -166,7 +166,7 @@ def login():
 			data.log.debug("User "+str(user)+" tried logging in with password '"+str(password)+"'.")
 			return render_template("userLogin.html",message="Invalid username or password")
 		else:
-			response = make_response( render_template("userLogin.html",message="Logged in.",redirect=True) )
+			response = make_response( render_template("userLogin.html",message="Logged in as member of Team "+team+".",redirect=True) )
 			response.set_cookie('jwtToken', jwtToken)
 			data.log.debug("User "+str(user)+" logged in.")
 			return response

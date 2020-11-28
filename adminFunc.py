@@ -104,7 +104,15 @@ def getData():
 
 @adminPanel.route("/history.log",methods=['POST'])
 def logs():
-	return send_file('./history.log')
+    if request.form["adminPass"] != creds.adminPass:
+        abort(403,"The admin page is not in scope, please don't attack it.")
+    return send_file('./history.log')
+
+@adminPanel.route("/registration.txt",methods=['POST'])
+def registration():
+    if request.form["adminPass"] != creds.adminPass:
+        abort(403,"The admin page is not in scope, please don't attack it.")
+    return send_file('./registration.txt')
 
 @adminPanel.route('/loadData',methods=['POST'])
 def loadData():
