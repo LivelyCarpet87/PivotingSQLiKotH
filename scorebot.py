@@ -88,11 +88,10 @@ def load():
 
 def scoreBoard():
 	data.log.debug("Scoreboard was loaded.")
-	returnStr = ""
-	returnStr += "SCOREBOARD:<br>"
+	returnList = []
 	for team in data.teams.keys():
-		returnStr += "Team "+team+": "+str(data.teams[team]["Score"])+"<br>"
-	return returnStr
+		returnList += ["Team "+team+": "+str(data.teams[team]["Score"])]
+	return returnList
 
 def deviceMap():
 	pass
@@ -114,6 +113,7 @@ def incrementCounter():
 	if data.gameStart and now > today8am and now < midnight:
 		for device in data.devices.keys():
 			data.devices[device]["lastTakeOver"] += data.scorebotInterval
+		data.gameUptime += data.scorebotInterval
 
 def job_function():
 	incrementCounter()

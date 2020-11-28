@@ -7,8 +7,7 @@
       alert("{{message | safe}}");
     </script>
     {% endif %}
-    <h1>Best Team</h1>
-    <p>Team {{controlledBy.capitalize()}} is the best team ever.</p>
+    <h1>Controlled by Team {{controlledBy.capitalize()}}!</h1>
     <h1>Device Login</h1>
     <p>Device ID: {{device}}</p>
     <form action="/game" method="POST">

@@ -49,7 +49,7 @@ def validatePath(team,path):
 	for i in range(0,int(len(path)/2)):
 		device = path[2*i : 2*(i+1)]
 		if device[1] not in ["1","2"] and not data.gameStart:
-			abort(403,"You are not allowed to attack other devices your team does not own yet. Shore up your defenses.")
+			abort(403,"Game is still in Team Defense-Building phase. You are not allowed to attack other devices your team does not own yet. Shore up your team's defenses until admins announce game start.")
 		if device not in data.devices.keys():
 			abort(400)
 		newPath += device

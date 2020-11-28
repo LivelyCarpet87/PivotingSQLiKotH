@@ -1,0 +1,155 @@
+<h1>Bootcamp Tutorials</h1>
+
+{% if releases >= 0 %}
+<h4 id="sql-injection-basics"><a name="sql-injection-basics" href="#sql-injection-basics"></a>SQL Injection Basics</h4>
+<p>
+  Most of the hacking is done through something called an
+  SQL injection, which is when the server code (what’s
+  actually behind your login pages) accidentally takes
+  user input(username, password) and treats it as system
+  code (you know, the stuff that’s basically random
+  english words and symbols put together), potentially
+  breaking the login portal. Our goal is to break it
+  intentionally, i.e. for a purpose: to allow us to
+  login without the password, AKA hack the server).
+</p>
+<p>A quick example is as follows: imagine there’s a
+  table called “logins” containing all the username
+  and password pairs. By the way, in SQL, ‘*’ is another
+  way of saying ‘everything’.
+</p>
+<p>
+  Imagine a database query as follows:
+</p>
+<p>SELECT * FROM logins WHERE username = ‘<strong>u5ername</strong>‘ and password = ‘<strong>pAssw0rd</strong>‘</p>
+<p>
+  This normally works fine: if you submit an existing
+  username-password combination (selects your pair and)
+  it logs you in. Otherwise, nothing is selected from
+  the database.
+</p>
+<p>E.g. <code>SELECT \* FROM logins WHERE username = &#39;john&#39; and password = &#39;123123123&#39;</code> would log you in if there was such an account.</p>
+<p>But what if we input <u><strong>‘ or 1==’1</strong></u>
+  for both fields instead? The query then turns into:
+</p>
+<p>
+  SELECT * FROM logins WHERE username = ‘<u><strong>‘
+  or 1==’1</strong></u>‘ and password = ‘<u><strong>‘ or
+    1==’1</strong></u>‘
+  </p>
+<p>Now, it is looking for a user named ‘’ (does not exist)
+  OR if 1 == ‘1’ (always equal, so true). Because 1 == ‘1’ is always true, so essentially you’ve
+  created a statement that always works (finds a matching
+  user), no matter whatever username or password is in
+  the database.
+</p>
+<p>
+  In short, you’ve logged in, without a password. To
+  combat this, you can set filters for the user’s input:
+  banning the string “==” from being in a username, for
+  example, would make the previous attack no longer work.
+</p>
+<p>
+  And that’s all there is to it! After you hack into a
+  server you can add one more filter, as long as it
+  doesn’t render your login attack useless. If you
+   don’t want others to hack into your server, you
+   gotta just think up better attacks, banning whatever
+   they might have used to login.
+ </p>
+{% endif %}
+
+{% if releases >= 1 %}
+<h4 id="more-sql-comparisons!"><a name="more-sql-comparisons!" href="#more-sql-comparisons!"></a>More SQL Comparisons!</h4>
+<p>
+  Here are some SQL comparison words beyond
+  <code>==</code>:
+</p>
+<ul>
+<li><code>&gt;</code>,<code>&lt;</code></li><li><code>&#39;b&#39; IN(&#39;a&#39;,&#39;b&#39;,&#39;c&#39;)</code></li><li><code>&#39;a&#39; LIKE &#39;b&#39;</code></li><li><code>2 BETWEEN 1 AND 3</code></li></ul>
+{% endif %}
+
+{% if releases >= 2 %}
+<h4 id="more-ways-to-get-true"><a name="more-ways-to-get-true" href="#more-ways-to-get-true"></a>More Ways to get True</h4>
+<p>Chain <code>OR</code> with:</p>
+<ul>
+<li>keyword <code>TRUE</code></li><li>keywords <code>NOT FALSE</code></li><li>numbers greater than 0 like <code>123</code> or <code>&#39;123&#39;</code> evaluate to true</li><li>strings like <code>&#39;abc123&#39;</code>, <code>0</code>, or <code>&#39;0&#39;</code> evaluate to false (hinht: what is not false?)</li></ul>
+{% endif %}
+
+{% if releases >= 3 %}
+<h4 id="union-attack-#1"><a name="union-attack-#1" href="#union-attack-#1"></a>Union Attack #1</h4>
+<p>
+  The union keyword combines multiple different search
+  results. For example, if you were to use <u><strong>‘
+    UNION SELECT username, password FROM logins—</strong>
+  </u> as your password, this would be the resulting
+  query:
+</p>
+<p>
+  SELECT * FROM logins WHERE username = ‘u5sername’
+  and password = ‘<u><strong>a’ UNION SELECT username
+    , password FROM logins—</strong></u>‘
+  </p>
+<p>
+  SQL ignores everything after ‘—‘ because it is
+  commented out, so the server then reads it as such:
+</p>
+<p>SELECT * FROM logins WHERE username = ‘u5sername’
+  and password = ‘<u><strong>a’ UNION SELECT username,
+    password FROM logins</strong></u>
+  </p>
+<p>Because we just combined the search for
+  <code>u5sername:a</code> with the ENTIRE logins
+  database table, the query will have at least one
+   match and you will be able to login.
+ </p>
+{% endif %}
+
+ {% if releases >= 4 %}
+ <h4 id="local-file-inclusion"><a name="local-file-inclusion" href="#local-file-inclusion"></a>Local File Inclusion</h4>
+ <p>
+   Even without the ability to upload and execute code,
+   a Local File Inclusion vulnerability can be dangerous.
+   An attacker can still perform a Directory Traversal /
+   Path Traversal attack using an LFI vulnerability as
+   follows.
+   </p>
+   <p>
+   `http://example.com/?file=../../../../etc/passwd`
+   </p>
+   <p>
+     In the above example, an attacker can get the
+     contents of the /etc/passwd file that contains a
+     list of users on the server and their hashed passwords.
+     Similarly, an attacker may leverage the Directory
+     Traversal vulnerability to access sensitive files.
+     This information may then be used to advance an attack.
+   </p>
+{% endif %}
+
+{% if releases >= 5 %}
+<h4 id="union-attack-#2"><a name="union-attack-#2" href="#union-attack-#2"></a>Union Attack #2</h4>
+<p>
+  UNION can also be used to combine query results
+  accross tables. You can use UNION in the search
+  function of the ‘diamond’ servers to steal passwords
+  and log in!
+</p>
+{% endif %}
+
+{% if releases >= 6 %}
+<h4 id="sleep()"><a name="sleep()" href="#sleep()"></a>SLEEP()</h4>
+<p>Although the server is SQLite, we implemented a custom
+  function called <code>SLEEP()</code> that accepts
+  integers. eg. <code>SLEEP(10)</code><br>Sites
+</p>
+{% endif %}
+
+{% if releases < 6 %}
+<h4>More Coming Soon</h4>
+<p>To award players for doing their own research, tutorials
+  are hidden until a certain amount of time passes. The next
+  tutorial releases at about {{timeLeft}} minutes from now.
+</p>
+{% endif %}
+<meta http-equiv="refresh" content="600" >

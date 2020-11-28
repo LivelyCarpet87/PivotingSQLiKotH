@@ -1,0 +1,91 @@
+<h1>Mechanics &amp; Scoring</h1>
+<h4>Map</h4>
+<img src="/static/BWMap.png" alt="Game Map" width="400">
+<p>The image shown above is the map of the network. A live version
+can be found <a href="/info/map">here</a>.</p>
+<h4>Understanding the Map AND Scoring</h4>
+<p>
+  The shapes represent servers which you may be able
+   to access. The lines and arrows represent which
+   servers are connected to each other. Arrows
+   represent one-way connections (i.e. if a—&gt;b
+   and you control a, you can attack b but not the
+   other way around). Lines connecting two devices allow
+   connections both ways.
+ </p>
+<p>
+  The four circles represent your team servers.
+  You start off with control of one of this server -
+  it is crucial to maintain control, too, as it acts
+  as your ‘entry’ to the rest of the network. Even if
+  you do lose control of it, though, you can always try
+  attacking it again, a feature unique to this server.
+  You gain {{teamOwned}} points
+  per {{scorebotInterval}} seconds that you’re in control
+  of this type of server.
+</p>
+<p>
+  The four ‘diamonds’ represent servers with databases.
+   You start off with control of the ‘diamond’ closest
+   to your team server. The database contains a list of
+    items; you gain {{query}} points for each successful
+    item
+    search in the database conducted by the scorebot every
+    {{scorebotInterval}} seconds in addition to the base of
+    {{db}} points per {{scorebotInterval}} seconds;
+    you can set your own custom filters, but that might
+    decrease the amount of points you get from item
+    searches. The option to completely disable the database
+     grants you zero item search points as expected, and
+     after {{modifierDivider}} seconds the database will be forcefully
+     reenabled to simulate confused disgruntled employees.
+   </p>
+<p>
+  The squares represent ‘contested servers’, or servers
+  that are located in between each team server and can
+  attack and be attacked by said team servers as well
+  as their corresponding database servers. They grant
+  {{contested}} points
+  per {{scorebotInterval}} seconds.
+</p>
+<p>
+  The center server is a special snowflake - it can
+  be attacked by 4 contested servers and can attack
+  all four database servers - the most of any server!
+   It grants {{special}} points
+   per {{scorebotInterval}} for the controlling
+   team.
+ </p>
+<p>
+  For every {{modifierDivider}} seconds you control any given server, your
+  score multiplier increases by 1, up to a maximum of
+  10: if you’ve been in control of your team server for
+  2 hrs and 30 minutes for now, for example, you would
+  currently be getting {{teamOwned}} * (1 + 2) = 60 points per
+  {{scorebotInterval}} seconds.
+</p>
+
+<h4>Filters</h4>
+<p>
+  Filters are your defenses. Each time someone tries
+  to log in, the server checks their username and password
+  against the filters. If any filtered string of characters
+  is found in the username or password, the server will
+  ignore the attempt to log in. The same applies for
+  database queries. Filters ignore upper/lower case and spaces
+  when comparing strings, so filter "abc" is going to match "0Ab Cd".
+</p>
+<p>If you initially owned the device (name starts
+  with your team letter and ends with 1 or 2, eg a1),
+  you can add as many filters as you want. Otherwise,
+  you may only add 1 filter item to EACH filter.
+</p>
+
+<h4>Database Products</h4>
+<p>Database products are:</p>
+{% for item in products %}
+<p>{{item}}</p>
+{% endfor %}
+
+<h4>Forums</h4>
+<p>This <a href="/game/forum">forum page</a> is where admins (owners of simulated devices) ask questions and leak credentials. </p>

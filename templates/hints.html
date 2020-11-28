@@ -2,39 +2,52 @@
   <head>
   </head>
   <body>
-    <h1>Filters</h1>
+    {% if releases >= 0 %}
+    <h1>About Filters</h1>
     <p>Filters are crucial in this game. If any field contains an item in the filters, the server will ignore the request.
       Thus it is very important to make filters to protect input from SQL injection. Be aware if you are blocking database
-      queries though. Filters ignore case and all spaces when comparing. It is highly recommended to filter SQL keywords.</p>
+      queries though. Filters ignore case and all spaces when comparing. It is highly recommended to filter SQL keywords.
+    </p>
+    {% endif %}
+
+    {% if releases >= 1 %}
     <h1>Plan Your Routes</h1>
     <p>You can plan your routes to prevent being cut off and to cut off other players.</p>
     <img src="/static/BWMap.jpg" alt="Starting Map">
-    <h1>Nodes</h1>
-    <p>Initially in the game, your team controls 2 nodes. You should defend these nodes to maintain access
+    <h1>Devices</h1>
+    <p>Initially in the game, your team controls 2 devices. You should defend these nodes to maintain access
       to the rest of the network and gain valuable points. As shown on the map above, nodes are connected
       to other nodes in a specific layout, so you must navigate the network to attack high-value targets and
       defend your connections. Remember that some connections are one way, meaning that the attacked node cannot
       retaliate. In these cases, try to cut off your opponent as a defensive measure.
     </p>
+    {% endif %}
+
+    {% if releases >= 2 %}
     <h1>Breaking In</h1>
-    <p>There are many ways to break in, including password extraction, guessing, and other things. Do not limit your thinking to sql injection!</p>
+    <p>There are many ways to break in, including password exfiltration, tricking opponents (allowed!), guessing, and more. Do not limit your thinking to just SQL injection!</p>
+    {% endif %}
+
+    {% if releases >= 3 %}
     <h1>Scoring</h1>
-    <h4>Best Targets</h4>
-    <p> Database nodes give the most points, and should be well defended!
+    <p> Database devices give the most points, and should be well defended!
     </p>
-    <p> Contested nodes between teams can be a safer and more reliable way to
+    <p> Contested devices between teams can be a safer and more reliable way to
       earn points, and you cut off enemy teams from the special node.
     </p>
-    <h4>Scoring Changes</h4>
-    <p>The admin may change the scoring to promote/nerf behavior</p>
-    <h1>Way to break in</h1>
-    <p>This game was designed to have many ways to break into servers. Explore more avenues than just SQL injection</p>
+    {% endif %}
+
+    {% if releases >= 4 %}
     <h1>Forums</h1>
     <p>This <a href="/game/forum">forum page</a> is where admins (owners of simulated devices) ask questions and leak sensitive information by accident. </p>
-    <h1>Resources</h1>
-    <p>1. <a href="https://resources.infosecinstitute.com/topic/hashcat-tutorial-beginners/">Hashcat use</a></p>
-    <p>2. <a href="https://pwning.owasp-juice.shop/part1/rules.html"> Recommended tools for those who want to take it a step further</a></p>
-    <!--<p>3. <a href="https://miloserdov.org/?p=1744"> Patator Usage</a></p>-->
-    <p>More coming soon! (JUST GOOGLE)</p>
+    {% endif %}
+    {% if releases < 4 %}
+    <h4>More Coming Soon</h4>
+    <p>To award players for doing their own research, hints
+      are hidden until a certain amount of time passes. The next
+      hint releases at about {{timeLeft}} minutes from now.
+    </p>
+    {% endif %}
+    <meta http-equiv="refresh" content="600" >
   </body>
 </html>

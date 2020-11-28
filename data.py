@@ -333,6 +333,8 @@ points={
 
 scorebotInterval = 60
 modifierDivider = 3600
+gameUptime = 0
+hintReleaseCycle = 4*60*60
 
 manifest = {
 "devices": devices,
@@ -342,11 +344,13 @@ manifest = {
 "jwtKey":jwtKey,
 "gameStart":gameStart,
 "points":points,
-"modifierDivider":modifierDivider
+"modifierDivider":modifierDivider,
+"gameUptime":gameUptime,
+"hintReleaseCycle":hintReleaseCycle
 }
 
 def manifestUpdate():
-    global manifest,devices,users,teams,products,jwtKey,gameStart,points,modifierDivider,scorebotInterval
+    global manifest,devices,users,teams,products,jwtKey,gameStart,points,modifierDivider,scorebotInterval,gameUptime,hintReleaseCycle
     manifest = {
     "devices": devices,
     "users": users,
@@ -356,11 +360,13 @@ def manifestUpdate():
     "gameStart":gameStart,
     "points":points,
     "modifierDivider":modifierDivider,
-    "scorebotInterval":scorebotInterval
+    "scorebotInterval":scorebotInterval,
+    "gameUptime":gameUptime,
+    "hintReleaseCycle":hintReleaseCycle
     }
 
 def manifestLoad(manifest):
-    global devices,users,teams,products,jwtKey,gameStart,points,modifierDivider,scorebotInterval
+    global devices,users,teams,products,jwtKey,gameStart,points,modifierDivider,scorebotInterval,gameUptime,hintReleaseCycle
     manifest = json.loads(manifest)
     devices = manifest.get("devices",devices)
     users = manifest.get("users",users)
@@ -371,4 +377,6 @@ def manifestLoad(manifest):
     points = manifest.get("points",points)
     modifierDivider = manifest.get("modifierDivider",modifierDivider)
     scorebotInterval = manifest.get("scorebotInterval",scorebotInterval)
+    gameUptime = manifest.get("gameUptime",gameUptime)
+    hintReleaseCycle = manifest.get("hintReleaseCycle",hintReleaseCycle)
     scorebot.scheduler.reschedule_job('scorebot',trigger="interval", seconds=scorebotInterval)
