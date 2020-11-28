@@ -15,6 +15,7 @@ import random
 import string
 import datetime
 
+
 app = flask.Flask(__name__)
 
 def render(templateName,device,message,path,command):
@@ -131,9 +132,21 @@ scorebot.load()
 data.log.debug("JSON Data Loaded")
 
 
-@app.before_first_request
+@app.before_request
 def init():
-	pass
+	now = datetime.datetime.now()
+	today8am = now.replace(hour=7, minute=45, second=0, microsecond=0)
+	midnight = now.replace(hour=23, minute=0, second=0, microsecond=0)
+	if now < today8am or now > midnight:
+		abort(403)
+
+@app.errorhandler(403)
+def sleep(error):
+	now = datetime.datetime.now()
+	today8am = now.replace(hour=7, minute=45, second=0, microsecond=0)
+	midnight = now.replace(hour=23, minute=0, second=0, microsecond=0)
+	if now < today8am or now > midnight:
+		return render_template("sleep.html")
 
 @app.route("/",methods=['GET'])
 def base():
