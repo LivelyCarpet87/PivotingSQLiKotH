@@ -40,13 +40,15 @@ def mechanicsAndScoring():
 def tutorials():
     return render_template("tutorials.html",
 	releases=int(data.gameUptime/data.hintReleaseCycle),
-	timeLeft=int((data.hintReleaseCycle-data.gameUptime%data.hintReleaseCycle) /60))
+	timeLeft=int((data.hintReleaseCycle-data.gameUptime%data.hintReleaseCycle) /60),
+    gameStart=data.gameStart)
 
 @info.route('/hints',methods=['GET'])
 def hints():
     return render_template("hints.html",
 	releases=int(data.gameUptime/data.hintReleaseCycle),
-	timeLeft=int((data.hintReleaseCycle-data.gameUptime%data.hintReleaseCycle) /60))
+	timeLeft=int((data.hintReleaseCycle-data.gameUptime%data.hintReleaseCycle) /60),
+    gameStart=data.gameStart)
 
 @info.route("/map",methods=['GET'])
 def map():

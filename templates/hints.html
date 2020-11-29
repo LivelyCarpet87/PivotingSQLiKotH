@@ -23,7 +23,7 @@
     </p>
     {% endif %}
 
-    {% if releases >= 1 %}
+    {% if releases >= 0 %}
     <h1>Breaking In</h1>
     <p>There are many ways to break in, including password exfiltration, tricking opponents (allowed!), guessing, and more. Do not limit your thinking to just SQL injection!</p>
     {% endif %}
@@ -37,7 +37,15 @@
     </p>
     {% endif %}
 
-    {% if releases >= 2 %}
+    {% if releases >= 1 %}
+    <h1>Truethiness</h1>
+    <p> Ever heard of string truthiness?
+    </p>
+    <p> Oh, and there are many ways to get TRUE, one of them is by using FALSE!
+    </p>
+    {% endif %}
+
+    {% if releases >= 1 %}
     <h1>Forums</h1>
     <p>This <a href="/game/forum">forum page</a> is where admins (owners of simulated devices) ask questions and leak sensitive information by accident. </p>
     {% endif %}
@@ -63,11 +71,20 @@
     <p>Could you make the servers sleepy? Maybe they would reveal something?</p>
     {% endif %}
 
-    {% if releases < 6 %}
-    <h4>More Coming Soon</h4>
-    <p>To award players for doing their own research, hints
-      are hidden until a certain amount of time passes. The next
-      hint releases at about {{timeLeft}} minutes from now.
+    {% if gameStart %}
+
+      {% if releases < 6 %}
+      <h1>More Coming Soon</h1>
+      <p>To award players for doing their own research, further hints
+        are hidden until a certain amount of time passes. The next
+        hint releases at about {{timeLeft}} minutes from now.
+      </p>
+      {% endif %}
+    {% else %}
+    <h1>More Coming Soon</h1>
+    <p>To award players for doing their own research, further hints
+      are hidden until a certain amount of time passes ({{timeLeft}} minutes as of now) after the game starts.
+      There will be more hint releases will come once the game starts.
     </p>
     {% endif %}
     <meta http-equiv="refresh" content="600" >

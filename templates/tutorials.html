@@ -145,11 +145,22 @@
 </p>
 {% endif %}
 
-{% if releases < 6 %}
-<h4>More Coming Soon</h4>
-<p>To award players for doing their own research, tutorials
-  are hidden until a certain amount of time passes. The next
-  tutorial releases at about {{timeLeft}} minutes from now.
+{% if gameStart %}
+
+  {% if releases < 6 %}
+  <h1>More Coming Soon</h1>
+  <p>To award players for doing their own research, more advanced tutorials
+    are hidden until a certain amount of time passes. The next
+    tutorial releases at about {{timeLeft}} minutes from now. Hints sometimes hint
+    at the content of the next tutorials if you want a direction to start research.
+  </p>
+  {% endif %}
+{% else %}
+<h1>More Coming Soon</h1>
+<p>To award players for doing their own research, more advanced tutorials
+  are hidden until a certain amount of time passes ({{timeLeft}} minutes as of now)
+  after the game starts.
+  There will be more tutorial releases will come once the game starts.
 </p>
 {% endif %}
 <meta http-equiv="refresh" content="600" >
