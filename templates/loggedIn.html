@@ -109,13 +109,13 @@
       window.location.replace("/game");
     </script>
     {% endif %}
-    <h1>Pivot To</h1>
+    <h1>Go To Other Devices</h1>
     {% for item in pivots %}
     <form action="/game" method="POST">
       <input type="hidden" id="action" name="path" value="{{path}}">
       <input type="hidden" id="action" name="action" value="pivot">
       <input type="hidden" id="pivotTo" name="pivotTo" value="{{ item }}">
-      <input type="submit" value="Pivot to {{ item }}">
+      <input type="submit" value="Go to to {{ item }}">
     </form>
     {% endfor %}
   </body>

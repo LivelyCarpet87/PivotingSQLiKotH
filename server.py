@@ -162,6 +162,7 @@ def register():
 		registration += request.form["password"]+"\n<br>\n"
 		f = open("./registration.txt", "a")
 		f.write(registration)
+		data.log.info("Registration Attempt:"+registration)
 		f.close()
 		return "Your registration has been recieved. The admins will notify you once it is processed."
 	return render_template("register.html")
@@ -174,7 +175,7 @@ def login():
 		jwtToken, success, team = validation.login(user,password)
 		if success == 2:
 			data.log.debug("Nonexistent user "+str(user)+" tried logging in.")
-			return render_template("userLogin.html",message="No such user created. Please contact admins to sign up.")
+			return render_template("userLogin.html",message="No such user created. Please sign up from the home page.")
 		elif success == 1:
 			data.log.debug("User "+str(user)+" tried logging in with password '"+str(password)+"'.")
 			return render_template("userLogin.html",message="Invalid username or password")
