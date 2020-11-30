@@ -147,6 +147,8 @@ def sleep(error):
 	midnight = now.replace(hour=23, minute=0, second=0, microsecond=0)
 	if now < today8am or now > midnight:
 		return render_template("sleep.html")
+	else:
+		return error
 
 @app.route("/",methods=['GET'])
 def base():
