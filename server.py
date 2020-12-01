@@ -137,8 +137,9 @@ def init():
 	now = datetime.datetime.now()
 	today8am = now.replace(hour=7, minute=45, second=0, microsecond=0)
 	midnight = now.replace(hour=23, minute=0, second=0, microsecond=0)
-	if now < today8am or now > midnight:
-		abort(403)
+	if now < today8am or now > midnight and request.method=='GET':
+		if request.path not in ["/","/register","/adminPanel/"]:
+			abort(403)
 
 @app.errorhandler(403)
 def sleep(error):
