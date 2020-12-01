@@ -21,32 +21,35 @@
 <p>
   Imagine a database query as follows:
 </p>
-<p>SELECT * FROM logins WHERE username = ‘<strong>u5ername</strong>‘ and password = ‘<strong>pAssw0rd</strong>‘</p>
+<p><span style="color:DodgerBlue;">SELECT</span> <span style="color:#a67f59;">*</span> <span style="color:DodgerBlue;">FROM</span> logins <span style="color:DodgerBlue;">WHERE</span>
+  username <span style="color:#a67f59;">=</span> <span style="color:MediumSeaGreen;">‘<strong>u5ername</strong>‘</span> <span style="color:#a67f59;">AND</span> password <span style="color:#a67f59;">=</span> <span style="color:MediumSeaGreen;">‘<strong>pAssw0rd</strong>‘</span></p>
 <p>
   This normally works fine: if you submit an existing
   username-password combination (selects your pair and)
   it logs you in. Otherwise, nothing is selected from
   the database.
 </p>
-<p>E.g. <code>SELECT \* FROM logins WHERE username = &#39;john&#39; and password = &#39;123123123&#39;</code> would log you in if there was such an account.</p>
-<p>But what if we input <u><strong>‘ or 1==’1</strong></u>
+<p>E.g. <span style="color:DodgerBlue;">SELECT</span> <span style="color:#a67f59;">*</span> <span style="color:DodgerBlue;">FROM</span> logins <span style="color:DodgerBlue;">WHERE</span>
+  username <span style="color:#a67f59;">=</span> <span style="color:MediumSeaGreen;">‘<strong>u5ername</strong>‘</span> <span style="color:#a67f59;">AND</span> password <span style="color:#a67f59;">=</span> <span style="color:MediumSeaGreen;">‘<strong>pAssw0rd</strong>‘</span> would
+  match the account u5ername:pAssw0rd and log you in (given the account exists).</p>
+<p>But what if we didn't know the username and password? If we input <u><strong>‘ or 1=’1</strong></u>
   for both fields instead? The query then turns into:
 </p>
 <p>
-  SELECT * FROM logins WHERE username = ‘<u><strong>‘
-  or 1==’1</strong></u>‘ and password = ‘<u><strong>‘ or
-    1==’1</strong></u>‘
+  <span style="color:DodgerBlue;">SELECT</span> <span style="color:#a67f59;">*</span> <span style="color:DodgerBlue;">FROM</span> logins <span style="color:DodgerBlue;">WHERE</span>
+   username <span style="color:#a67f59;">=</span>
+   <span style="color:MediumSeaGreen;">‘<u><strong>‘</strong></u></span><u><strong><span style="color:#a67f59;">OR</span> <span style="color:#905;">1</span><span style="color:#a67f59;">=</span></strong></u><span style="color:MediumSeaGreen;"><u><strong>’1</strong></u>‘</span> <span style="color:#a67f59;">AND</span> password <span style="color:#a67f59;">=</span> <span style="color:MediumSeaGreen;">‘<u><strong>‘</strong></u></span><u><strong> <span style="color:#a67f59;">OR</span>
+    <span style="color:#905;">1</span><span style="color:#a67f59;">=</span> </strong></u><span style="color:MediumSeaGreen;"><u><strong>’1</strong></u>‘</span>
   </p>
-<p>Now, it is looking for a user named ‘’ (does not exist)
-  OR if 1 == ‘1’ (always equal, so true). Because 1 == ‘1’ is always true, so essentially you’ve
-  created a statement that always works (finds a matching
-  user), no matter whatever username or password is in
-  the database.
+<p>Now, it matches a user named <span style="color:MediumSeaGreen;">‘’</span> (does not match anything)
+  <span style="color:#a67f59;">OR</span> if <span style="color:#905;">1</span> <span style="color:#a67f59;">=</span> <span style="color:MediumSeaGreen;">‘1’</span> (always equal, so always true). Because <span style="color:#905;">1</span> <span style="color:#a67f59;">=</span> <span style="color:MediumSeaGreen;">‘1’</span> is always true, so essentially you’ve
+  created a statement that always matches everything, no matter whatever username is in
+  the database. The same process occurs for the password.
 </p>
 <p>
   In short, you’ve logged in, without a password. To
   combat this, you can set filters for the user’s input:
-  banning the string “==” from being in a username, for
+  banning the <span style="color:#a67f59;">=</span> from being in a username, for
   example, would make the previous attack no longer work.
 </p>
 <p>
@@ -63,7 +66,7 @@
 <h4 id="more-sql-comparisons!"><a name="more-sql-comparisons!" href="#more-sql-comparisons!"></a>More SQL Comparisons!</h4>
 <p>
   Here are some SQL comparison words beyond
-  <code>==</code>:
+  <code>=</code>:
 </p>
 <ul>
 <li><code>&gt;</code>,<code>&lt;</code></li><li><code>&#39;b&#39; IN(&#39;a&#39;,&#39;b&#39;,&#39;c&#39;)</code></li><li><code>&#39;a&#39; LIKE &#39;b&#39;</code></li><li><code>2 BETWEEN 1 AND 3</code></li></ul>
@@ -81,24 +84,24 @@
 <p>
   The union keyword combines multiple different search
   results. For example, if you were to use <u><strong>‘
-    UNION SELECT username, password FROM logins—</strong>
+    UNION SELECT username, password FROM logins--</strong>
   </u> as your password, this would be the resulting
   query:
 </p>
 <p>
-  SELECT * FROM logins WHERE username = ‘u5sername’
-  and password = ‘<u><strong>a’ UNION SELECT username
-    , password FROM logins—</strong></u>‘
+  <span style="color:DodgerBlue;">SELECT</span> <span style="color:#a67f59;">*</span> <span style="color:DodgerBlue;">FROM</span> logins <span style="color:DodgerBlue;">WHERE</span>
+  username <span style="color:#a67f59;">=</span> <span style="color:MediumSeaGreen;">‘<strong>u5ername</strong>‘</span> <span style="color:#a67f59;">AND</span> password <span style="color:#a67f59;">=</span> <span style="color:MediumSeaGreen;">‘<u><strong>a’</strong></u></span><u><strong> <span style="color:DodgerBlue;">UNION SELECT</span> username
+    , password <span style="color:DodgerBlue;">FROM</span> logins <span style="color:#00a79d;">--</span></strong></u><span style="color:#00a79d;">'</span>
   </p>
 <p>
-  SQL ignores everything after ‘—‘ because it is
+  SQL ignores everything after ‘--‘ because it is
   commented out, so the server then reads it as such:
 </p>
-<p>SELECT * FROM logins WHERE username = ‘u5sername’
-  and password = ‘<u><strong>a’ UNION SELECT username,
-    password FROM logins</strong></u>
+<p><span style="color:DodgerBlue;">SELECT</span> <span style="color:#a67f59;">*</span> <span style="color:DodgerBlue;">FROM</span> logins <span style="color:DodgerBlue;">WHERE</span>
+  username <span style="color:#a67f59;">=</span> <span style="color:MediumSeaGreen;">‘<strong>u5ername</strong>‘</span> <span style="color:#a67f59;">AND</span> password <span style="color:#a67f59;">=</span> <span style="color:MediumSeaGreen;">‘<u><strong>a’</strong></u></span><u><strong> <span style="color:DodgerBlue;">UNION SELECT</span> username
+    , password <span style="color:DodgerBlue;">FROM</span> logins</strong></u>
   </p>
-<p>Because we just combined the search for
+<p>The second SELECT statement would return the entire logins table because there are no requirements (so everything matches). Because we just combined the search for
   <code>u5sername:a</code> with the ENTIRE logins
   database table, the query will have at least one
    match and you will be able to login.
