@@ -7,57 +7,47 @@ import random
 from apscheduler.schedulers.background import BackgroundScheduler
 
 def tallyScore():
-	now = datetime.datetime.now()
-	today8am = now.replace(hour=7, minute=45, second=0, microsecond=0)
-	midnight = now.replace(hour=23, minute=0, second=0, microsecond=0)
+	#data.log.debug("Scores were tallied.")
+	for device in ["a1","b1","c1","d1"]:
+		if data.devices[device]["controlledBy"] in ["a","b","c","d"]:
+			team = data.devices[device]["controlledBy"]
+			data.teams[team]["Score"] += data.points["teamOwned"] * modifiers(device)
 
-	if data.gameStart and now > today8am and now < midnight:
-		#data.log.debug("Scores were tallied.")
-		for device in ["a1","b1","c1","d1"]:
-			if data.devices[device]["controlledBy"] in ["a","b","c","d"]:
-				team = data.devices[device]["controlledBy"]
-				data.teams[team]["Score"] += data.points["teamOwned"] * modifiers(device)
+	for device in ["ab","bc","cd","ac","bd","ad"]:
+		if data.devices[device]["controlledBy"] in ["a","b","c","d"]:
+			team = data.devices[device]["controlledBy"]
+			data.teams[team]["Score"] += data.points["contested"] * modifiers(device)
 
-		for device in ["ab","bc","cd","ac","bd","ad"]:
-			if data.devices[device]["controlledBy"] in ["a","b","c","d"]:
-				team = data.devices[device]["controlledBy"]
-				data.teams[team]["Score"] += data.points["contested"] * modifiers(device)
+	for device in ["sp"]:
+		if data.devices[device]["controlledBy"] in ["a","b","c","d"]:
+			team = data.devices[device]["controlledBy"]
+			data.teams[team]["Score"] += data.points["special"] * modifiers(device)
 
-		for device in ["sp"]:
-			if data.devices[device]["controlledBy"] in ["a","b","c","d"]:
-				team = data.devices[device]["controlledBy"]
-				data.teams[team]["Score"] += data.points["special"] * modifiers(device)
-
-		for device in ["a2","b2","c2","d2"]:
-			if data.devices[device]["controlledBy"] in ["a","b","c","d"]:
-				team = data.devices[device]["controlledBy"]
-				data.teams[team]["Score"] += data.points["db"] * modifiers(device)
-				for item in data.products.keys():
-					message, command = interactions.query(device,item)
-					if message not in ["Query did not pass SQL filter.","SQL error.","Query NOT enabled."]:
-						#data.log.debug(str(item) + " query was successful:"+repr(message)+":"+repr(command))
-						data.teams[team]["Score"] += data.points["query"] * modifiers(device)
-					#else:
-						#data.log.debug(str(item) + " query was unsuccessful:"+repr(message)+":"+repr(command))
+	for device in ["a2","b2","c2","d2"]:
+		if data.devices[device]["controlledBy"] in ["a","b","c","d"]:
+			team = data.devices[device]["controlledBy"]
+			data.teams[team]["Score"] += data.points["db"] * modifiers(device)
+			for item in data.products.keys():
+				message, command = interactions.query(device,item)
+				if message not in ["Query did not pass SQL filter.","SQL error.","Query NOT enabled."]:
+					#data.log.debug(str(item) + " query was successful:"+repr(message)+":"+repr(command))
+					data.teams[team]["Score"] += data.points["query"] * modifiers(device)
+				#else:
+					#data.log.debug(str(item) + " query was unsuccessful:"+repr(message)+":"+repr(command))
 
 def maintainers():
-	now = datetime.datetime.now()
-	today8am = now.replace(hour=7, minute=45, second=0, microsecond=0)
-	midnight = now.replace(hour=23, minute=0, second=0, microsecond=0)
-
-	if data.gameStart and now > today8am and now < midnight:
-		for device in data.devices.keys():
-			if not data.devices[device]["queryEnabled"]:
-				data.devices[device]["lastReset"] += data.scorebotInterval
+	for device in data.devices.keys():
+		if not data.devices[device]["queryEnabled"]:
+			data.devices[device]["lastReset"] += data.scorebotInterval
+		else:
+			if data.devices[device]["lastReset"] > -data.modifierDivider/2:
+				data.devices[device]["lastReset"] -= data.scorebotInterval
+		if data.devices[device]["lastReset"] >= data.modifierDivider:
+			if device in  ["a2","b2","c2","d2"]:
+				data.devices[device]["queryEnabled"] = True
 			else:
-				if data.devices[device]["lastReset"] > -data.modifierDivider/2:
-					data.devices[device]["lastReset"] -= data.scorebotInterval
-			if data.devices[device]["lastReset"] >= data.modifierDivider:
-				if device in  ["a2","b2","c2","d2"]:
-					data.devices[device]["queryEnabled"] = True
-				else:
-					data.devices[device]["lastReset"] = 0
-			data.devices[device]["lastTakeOver"] += data.scorebotInterval
+				data.devices[device]["lastReset"] = 0
+		data.devices[device]["lastTakeOver"] += data.scorebotInterval
 
 def reset(device):
 	data.devices[device]["lastTakeOver"] = 0
@@ -107,25 +97,26 @@ def history():
 			f.write(newCommand+'\n')
 
 def incrementCounter():
-	now = datetime.datetime.now()
-	today8am = now.replace(hour=7, minute=45, second=0, microsecond=0)
-	midnight = now.replace(hour=23, minute=0, second=0, microsecond=0)
-	if data.gameStart and now > today8am and now < midnight:
-		for device in data.devices.keys():
-			data.devices[device]["lastTakeOver"] += data.scorebotInterval
-		data.gameUptime += data.scorebotInterval
+	for device in data.devices.keys():
+		data.devices[device]["lastTakeOver"] += data.scorebotInterval
+	data.gameUptime += data.scorebotInterval
 
 def job_function():
-	incrementCounter()
-	tallyScore()
-	history()
-	maintainers()
-	save()
+	now = datetime.datetime.now()
+	early = now.replace(hour=7, minute=45, second=0, microsecond=0)
+	late = now.replace(hour=22, minute=30, second=0, microsecond=0)
+	if data.gameStart and now > early or now < late:
+		incrementCounter()
+		tallyScore()
+		history()
+		maintainers()
+		save()
 
 def init():
 	interval = data.scorebotInterval
 	scheduler.add_job(func=job_function, trigger="interval", seconds=interval, id='scorebot')
 	data.log.debug("Scorebot Started")
+	save()
 
 scheduler = BackgroundScheduler()
 scheduler.start()
