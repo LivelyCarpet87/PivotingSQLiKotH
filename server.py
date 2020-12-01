@@ -126,6 +126,7 @@ def render(templateName,device,message,path,command):
 
 app.register_blueprint(adminFunc.adminPanel, url_prefix='/adminPanel')
 app.register_blueprint(info.info, url_prefix='/info')
+app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 scorebot.init()
 scorebot.load()
@@ -138,7 +139,7 @@ def init():
 	early = now.replace(hour=7, minute=45, second=0, microsecond=0)
 	late = now.replace(hour=22, minute=30, second=0, microsecond=0)
 	if now < early or now > late and request.method=='GET':
-		if request.path not in ["/","/register","/adminPanel/"]:
+		if request.path not in ["/","/register","/adminPanel/","/info/mechanicsAndScoring"]:
 			abort(403)
 
 @app.errorhandler(403)
