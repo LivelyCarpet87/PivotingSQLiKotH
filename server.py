@@ -135,17 +135,17 @@ data.log.debug("JSON Data Loaded")
 @app.before_request
 def init():
 	now = datetime.datetime.now()
-	today8am = now.replace(hour=7, minute=45, second=0, microsecond=0)
-	midnight = now.replace(hour=23, minute=0, second=0, microsecond=0)
-	if now < today8am or now > midnight:
+	early = now.replace(hour=7, minute=45, second=0, microsecond=0)
+	late = now.replace(hour=22, minute=30, second=0, microsecond=0)
+	if now < early or now > late:
 		abort(403)
 
 @app.errorhandler(403)
 def sleep(error):
 	now = datetime.datetime.now()
-	today8am = now.replace(hour=7, minute=45, second=0, microsecond=0)
-	midnight = now.replace(hour=23, minute=0, second=0, microsecond=0)
-	if now < today8am or now > midnight:
+	early = now.replace(hour=7, minute=45, second=0, microsecond=0)
+	late = now.replace(hour=22, minute=30, second=0, microsecond=0)
+	if now < early or now > late:
 		return render_template("sleep.html")
 	else:
 		return error
