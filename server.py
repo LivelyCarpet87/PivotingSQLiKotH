@@ -86,7 +86,24 @@ def render(templateName,device,message,path,command):
 				queryFilter=data.devices[device]["queryFilter"],
 				pivots=data.devices[device]["canAccess"],
 				message=message,
-				path=path)
+				path=path,
+				a1=data.devices["a1"]["controlledBy"] if (data.devices["a1"]["controlledBy"]!="") else "n",
+				a2=data.devices["a2"]["controlledBy"] if (data.devices["a2"]["controlledBy"]!="") else "n",
+				b1=data.devices["b1"]["controlledBy"] if (data.devices["b1"]["controlledBy"]!="") else "n",
+				b2=data.devices["b2"]["controlledBy"] if (data.devices["b2"]["controlledBy"]!="") else "n",
+				c1=data.devices["c1"]["controlledBy"] if (data.devices["c1"]["controlledBy"]!="") else "n",
+				c2=data.devices["c2"]["controlledBy"] if (data.devices["c2"]["controlledBy"]!="") else "n",
+				d1=data.devices["d1"]["controlledBy"] if (data.devices["d1"]["controlledBy"]!="") else "n",
+				d2=data.devices["d2"]["controlledBy"] if (data.devices["d2"]["controlledBy"]!="") else "n",
+
+				ab=data.devices["ab"]["controlledBy"] if (data.devices["ab"]["controlledBy"]!="") else "n",
+				bc=data.devices["bc"]["controlledBy"] if (data.devices["bc"]["controlledBy"]!="") else "n",
+				cd=data.devices["cd"]["controlledBy"] if (data.devices["cd"]["controlledBy"]!="") else "n",
+				ac=data.devices["ac"]["controlledBy"] if (data.devices["ac"]["controlledBy"]!="") else "n",
+				bd=data.devices["bd"]["controlledBy"] if (data.devices["bd"]["controlledBy"]!="") else "n",
+				ad=data.devices["ad"]["controlledBy"] if (data.devices["ad"]["controlledBy"]!="") else "n",
+
+				sp=data.devices["sp"]["controlledBy"] if (data.devices["sp"]["controlledBy"]!="") else "n")
 			else:
 				return render_template("loggedIn.html",
 				device=device,
@@ -97,7 +114,24 @@ def render(templateName,device,message,path,command):
 				passwordFilter=data.devices[device]["passwordFilter"],
 				pivots=data.devices[device]["canAccess"],
 				message=message,
-				path=path)
+				path=path,
+				a1=data.devices["a1"]["controlledBy"] if (data.devices["a1"]["controlledBy"]!="") else "n",
+				a2=data.devices["a2"]["controlledBy"] if (data.devices["a2"]["controlledBy"]!="") else "n",
+				b1=data.devices["b1"]["controlledBy"] if (data.devices["b1"]["controlledBy"]!="") else "n",
+				b2=data.devices["b2"]["controlledBy"] if (data.devices["b2"]["controlledBy"]!="") else "n",
+				c1=data.devices["c1"]["controlledBy"] if (data.devices["c1"]["controlledBy"]!="") else "n",
+				c2=data.devices["c2"]["controlledBy"] if (data.devices["c2"]["controlledBy"]!="") else "n",
+				d1=data.devices["d1"]["controlledBy"] if (data.devices["d1"]["controlledBy"]!="") else "n",
+				d2=data.devices["d2"]["controlledBy"] if (data.devices["d2"]["controlledBy"]!="") else "n",
+
+				ab=data.devices["ab"]["controlledBy"] if (data.devices["ab"]["controlledBy"]!="") else "n",
+				bc=data.devices["bc"]["controlledBy"] if (data.devices["bc"]["controlledBy"]!="") else "n",
+				cd=data.devices["cd"]["controlledBy"] if (data.devices["cd"]["controlledBy"]!="") else "n",
+				ac=data.devices["ac"]["controlledBy"] if (data.devices["ac"]["controlledBy"]!="") else "n",
+				bd=data.devices["bd"]["controlledBy"] if (data.devices["bd"]["controlledBy"]!="") else "n",
+				ad=data.devices["ad"]["controlledBy"] if (data.devices["ad"]["controlledBy"]!="") else "n",
+
+				sp=data.devices["sp"]["controlledBy"] if (data.devices["sp"]["controlledBy"]!="") else "n")
 		else:
 			if device in ["a2","b2","c2","d2"]:
 				return render_template("loggedIn.html",
@@ -110,7 +144,24 @@ def render(templateName,device,message,path,command):
 				queryEnabled=data.devices[device]["queryEnabled"],
 				queryFilter=data.devices[device]["queryFilter"],
 				pivots=data.devices[device]["canAccess"],
-				path=path)
+				path=path,
+				a1=data.devices["a1"]["controlledBy"] if (data.devices["a1"]["controlledBy"]!="") else "n",
+				a2=data.devices["a2"]["controlledBy"] if (data.devices["a2"]["controlledBy"]!="") else "n",
+				b1=data.devices["b1"]["controlledBy"] if (data.devices["b1"]["controlledBy"]!="") else "n",
+				b2=data.devices["b2"]["controlledBy"] if (data.devices["b2"]["controlledBy"]!="") else "n",
+				c1=data.devices["c1"]["controlledBy"] if (data.devices["c1"]["controlledBy"]!="") else "n",
+				c2=data.devices["c2"]["controlledBy"] if (data.devices["c2"]["controlledBy"]!="") else "n",
+				d1=data.devices["d1"]["controlledBy"] if (data.devices["d1"]["controlledBy"]!="") else "n",
+				d2=data.devices["d2"]["controlledBy"] if (data.devices["d2"]["controlledBy"]!="") else "n",
+
+				ab=data.devices["ab"]["controlledBy"] if (data.devices["ab"]["controlledBy"]!="") else "n",
+				bc=data.devices["bc"]["controlledBy"] if (data.devices["bc"]["controlledBy"]!="") else "n",
+				cd=data.devices["cd"]["controlledBy"] if (data.devices["cd"]["controlledBy"]!="") else "n",
+				ac=data.devices["ac"]["controlledBy"] if (data.devices["ac"]["controlledBy"]!="") else "n",
+				bd=data.devices["bd"]["controlledBy"] if (data.devices["bd"]["controlledBy"]!="") else "n",
+				ad=data.devices["ad"]["controlledBy"] if (data.devices["ad"]["controlledBy"]!="") else "n",
+
+				sp=data.devices["sp"]["controlledBy"] if (data.devices["sp"]["controlledBy"]!="") else "n")
 			else:
 				return render_template("loggedIn.html",
 				device=device,
@@ -120,7 +171,24 @@ def render(templateName,device,message,path,command):
 				usernameFilter=data.devices[device]["usernameFilter"],
 				passwordFilter=data.devices[device]["passwordFilter"],
 				pivots=data.devices[device]["canAccess"],
-				path=path)
+				path=path,
+				a1=data.devices["a1"]["controlledBy"] if (data.devices["a1"]["controlledBy"]!="") else "n",
+				a2=data.devices["a2"]["controlledBy"] if (data.devices["a2"]["controlledBy"]!="") else "n",
+				b1=data.devices["b1"]["controlledBy"] if (data.devices["b1"]["controlledBy"]!="") else "n",
+				b2=data.devices["b2"]["controlledBy"] if (data.devices["b2"]["controlledBy"]!="") else "n",
+				c1=data.devices["c1"]["controlledBy"] if (data.devices["c1"]["controlledBy"]!="") else "n",
+				c2=data.devices["c2"]["controlledBy"] if (data.devices["c2"]["controlledBy"]!="") else "n",
+				d1=data.devices["d1"]["controlledBy"] if (data.devices["d1"]["controlledBy"]!="") else "n",
+				d2=data.devices["d2"]["controlledBy"] if (data.devices["d2"]["controlledBy"]!="") else "n",
+
+				ab=data.devices["ab"]["controlledBy"] if (data.devices["ab"]["controlledBy"]!="") else "n",
+				bc=data.devices["bc"]["controlledBy"] if (data.devices["bc"]["controlledBy"]!="") else "n",
+				cd=data.devices["cd"]["controlledBy"] if (data.devices["cd"]["controlledBy"]!="") else "n",
+				ac=data.devices["ac"]["controlledBy"] if (data.devices["ac"]["controlledBy"]!="") else "n",
+				bd=data.devices["bd"]["controlledBy"] if (data.devices["bd"]["controlledBy"]!="") else "n",
+				ad=data.devices["ad"]["controlledBy"] if (data.devices["ad"]["controlledBy"]!="") else "n",
+
+				sp=data.devices["sp"]["controlledBy"] if (data.devices["sp"]["controlledBy"]!="") else "n")
 	else:
 		abort(500)
 
@@ -154,7 +222,24 @@ def sleep(error):
 
 @app.route("/",methods=['GET'])
 def base():
-	return render_template("base.html")
+	return render_template("base.html",
+	a1=data.devices["a1"]["controlledBy"] if (data.devices["a1"]["controlledBy"]!="") else "n",
+	a2=data.devices["a2"]["controlledBy"] if (data.devices["a2"]["controlledBy"]!="") else "n",
+	b1=data.devices["b1"]["controlledBy"] if (data.devices["b1"]["controlledBy"]!="") else "n",
+	b2=data.devices["b2"]["controlledBy"] if (data.devices["b2"]["controlledBy"]!="") else "n",
+	c1=data.devices["c1"]["controlledBy"] if (data.devices["c1"]["controlledBy"]!="") else "n",
+	c2=data.devices["c2"]["controlledBy"] if (data.devices["c2"]["controlledBy"]!="") else "n",
+	d1=data.devices["d1"]["controlledBy"] if (data.devices["d1"]["controlledBy"]!="") else "n",
+	d2=data.devices["d2"]["controlledBy"] if (data.devices["d2"]["controlledBy"]!="") else "n",
+
+	ab=data.devices["ab"]["controlledBy"] if (data.devices["ab"]["controlledBy"]!="") else "n",
+	bc=data.devices["bc"]["controlledBy"] if (data.devices["bc"]["controlledBy"]!="") else "n",
+	cd=data.devices["cd"]["controlledBy"] if (data.devices["cd"]["controlledBy"]!="") else "n",
+	ac=data.devices["ac"]["controlledBy"] if (data.devices["ac"]["controlledBy"]!="") else "n",
+	bd=data.devices["bd"]["controlledBy"] if (data.devices["bd"]["controlledBy"]!="") else "n",
+	ad=data.devices["ad"]["controlledBy"] if (data.devices["ad"]["controlledBy"]!="") else "n",
+
+	sp=data.devices["sp"]["controlledBy"] if (data.devices["sp"]["controlledBy"]!="") else "n")
 
 @app.route("/register",methods=['GET','POST'])
 def register():

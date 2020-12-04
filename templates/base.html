@@ -1,5 +1,32 @@
 <html>
   <head>
+    <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    .row {
+      display: -ms-flexbox; /* IE10 */
+      display: flex;
+      -ms-flex-wrap: wrap; /* IE10 */
+      flex-wrap: wrap;
+      padding: 0 0px;
+    }
+
+    /* Create equal columns that sits next to each other */
+    .column {
+      -ms-flex: 3.0%; /* IE10 */
+      flex: 3.0%;
+      max-width: 3.0%;
+      padding: 0 0px;
+    }
+
+    .column img {
+      margin-top: 0px;
+      vertical-align: middle;
+      width: 100%;
+    }
+    </style>
   </head>
   <body>
     {% if message is defined %}
@@ -16,7 +43,72 @@
     <h4>Login And Signups</h4>
     <p><a href="/login">Player Login</a></p>
     <p><a href="/register">Register</a></p>
-
+    <h4>Map</h4>
+    <div class="row">
+      <!--Column 1-->
+      <div class="column">
+        <img src="/static/MapSprites/connector/LUCorner.png" style="width:100%">
+        <img src="/static/MapSprites/connector/vertical.png" style="width:100%">
+        <img src="/static/MapSprites/Contested/Out/{{bd}}.png" style="width:100%"> <!--bd-->
+        <img src="/static/MapSprites/connector/vertical.png" style="width:100%">
+        <img src="/static/MapSprites/connector/vertical.png" style="width:100%">
+        <img src="/static/MapSprites/connector/LD.png" style="width:100%">
+      </div>
+      <!--Column 2-->
+      <div class="column">
+        <img src="/static/MapSprites/connector/LU.png" style="width:100%">
+        <img src="/static/MapSprites/AccessNodes/LU/{{c1}}.png" style="width:100%"> <!--c1-->
+        <img src="/static/MapSprites/connector/vertical.png" style="width:100%">
+        <img src="/static/MapSprites/Contested/L/{{cd}}.png" style="width:100%"> <!--cd-->
+        <img src="/static/MapSprites/connector/vertical.png" style="width:100%">
+        <img src="/static/MapSprites/AccessNodes/LD/{{d1}}.png" style="width:100%"> <!--d1-->
+      </div>
+      <!--Column 3-->
+      <div class="column">
+        <img src="/static/MapSprites/connector/horizontal2.png" style="width:100%">
+        <img src="/static/MapSprites/connector/horizontal.png" style="width:100%">
+        <img src="/static/MapSprites/DB/LDRU/{{c2}}.png" style="width:100%"> <!--c2-->
+        <img src="/static/MapSprites/connector/horizontal.png" style="width:100%">
+        <img src="/static/MapSprites/DB/LURD/{{d2}}.png" style="width:100%"> <!--d2-->
+        <img src="/static/MapSprites/connector/horizontal.png" style="width:100%">
+      </div>
+      <!--Column 4-->
+      <div class="column">
+        <img src="/static/MapSprites/connector/UMid.png" style="width:100%">
+        <img src="/static/MapSprites/Contested/U/{{bc}}.png" style="width:100%"> <!--bc-->
+        <img src="/static/MapSprites/connector/vertical.png" style="width:100%">
+        <img src="/static/MapSprites/Special/{{sp}}.png" style="width:100%"> <!--sp-->
+        <img src="/static/MapSprites/connector/vertical.png" style="width:100%">
+        <img src="/static/MapSprites/Contested/D/{{ad}}.png" style="width:100%"> <!--ad-->
+      </div>
+      <!--Column 5-->
+      <div class="column">
+        <img src="/static/MapSprites/connector/horizontal2.png" style="width:100%">
+        <img src="/static/MapSprites/connector/horizontal.png" style="width:100%">
+        <img src="/static/MapSprites/DB/LURD/{{b2}}.png" style="width:100%"> <!--b2-->
+        <img src="/static/MapSprites/connector/horizontal.png" style="width:100%">
+        <img src="/static/MapSprites/DB/LDRU/{{a2}}.png" style="width:100%"> <!--a2-->
+        <img src="/static/MapSprites/connector/horizontal.png" style="width:100%">
+      </div>
+      <!--Column 6-->
+      <div class="column">
+        <img src="/static/MapSprites/connector/RU.png" style="width:100%">
+        <img src="/static/MapSprites/AccessNodes/RU/{{b1}}.png" style="width:100%"> <!--b1-->
+        <img src="/static/MapSprites/connector/vertical.png" style="width:100%">
+        <img src="/static/MapSprites/Contested/R/{{ab}}.png" style="width:100%"> <!--ab-->
+        <img src="/static/MapSprites/connector/vertical.png" style="width:100%">
+        <img src="/static/MapSprites/AccessNodes/RD/{{a1}}.png" style="width:100%"> <!--a1-->
+      </div>
+      <!--Column 7-->
+      <div class="column">
+        <img src="/static/MapSprites/connector/RUCorner.png" style="width:100%">
+        <img src="/static/MapSprites/connector/vertical.png" style="width:100%">
+        <img src="/static/MapSprites/Contested/Out/{{ac}}.png" style="width:100%"> <!--bd-->
+        <img src="/static/MapSprites/connector/vertical.png" style="width:100%">
+        <img src="/static/MapSprites/connector/vertical.png" style="width:100%">
+        <img src="/static/MapSprites/connector/RD.png" style="width:100%">
+      </div>
+    </div>
     <h4>Game Elements</h4>
     <p><a href="/game">Game URL</a> (Enter Network Here)</p>
     <p><a href="/game/forum">Admin Forums</a></p>
@@ -27,6 +119,6 @@
     <p><a href="/info/tutorials">2. Tutorials</a></p>
     <p><a href="/info/hints">3. Hints</a></p>
     <p><a href="/info/scoreboard">4. Scoreboard</a></p>
-    <p><a href="/info/map">5. Map</a></p>
+    <p><a href="/info/map">5. More Map</a></p>
   </body>
 </html>
