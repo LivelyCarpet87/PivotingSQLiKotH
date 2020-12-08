@@ -32,8 +32,10 @@
 <p>E.g. <span style="color:DodgerBlue;">SELECT</span> <span style="color:#a67f59;">*</span> <span style="color:DodgerBlue;">FROM</span> logins <span style="color:DodgerBlue;">WHERE</span>
   username <span style="color:#a67f59;">=</span> <span style="color:MediumSeaGreen;">‘<strong>u5ername</strong>‘</span> <span style="color:#a67f59;">AND</span> password <span style="color:#a67f59;">=</span> <span style="color:MediumSeaGreen;">‘<strong>pAssw0rd</strong>‘</span> would
   match the account u5ername:pAssw0rd and log you in (given the account exists).</p>
+<br>
+<br>
 <p>But what if we didn't know the username and password? If we input <u><strong>‘ or 1=’1</strong></u>
-  for both fields instead? The query then turns into:
+  for both fields instead? The query then turns into: (<strong><u>Bolded and underlined parts</u></strong> are attacker inputs.)
 </p>
 <p>
   <span style="color:DodgerBlue;">SELECT</span> <span style="color:#a67f59;">*</span> <span style="color:DodgerBlue;">FROM</span> logins <span style="color:DodgerBlue;">WHERE</span>
@@ -65,11 +67,29 @@
 {% if releases >= 1 %}
 <h4 id="more-sql-comparisons!"><a name="more-sql-comparisons!" href="#more-sql-comparisons!"></a>More SQL Comparisons!</h4>
 <p>
-  Here are some SQL comparison words beyond
-  <code>=</code>:
+  Here are some SQL comparison words beyond equalities:
 </p>
 <ul>
-<li><code>&gt;</code>,<code>&lt;</code></li><li><code>&#39;b&#39; IN(&#39;a&#39;,&#39;b&#39;,&#39;c&#39;)</code></li><li><code>&#39;a&#39; LIKE &#39;b&#39;</code></li><li><code>2 BETWEEN 1 AND 3</code></li></ul>
+  <li>
+    <code>&gt;</code>,<code>&lt;</code>
+  </li>
+  <li>
+    <code>&#39;b&#39; IN(&#39;a&#39;,&#39;b&#39;,&#39;c&#39;)</code>
+  </li>
+  <li>
+    <code>&#39;a&#39; LIKE &#39;b&#39;</code>
+  </li>
+  <li>
+    <code>2 BETWEEN 1 AND 3</code>
+  </li>
+</ul>
+<p>
+  Eg. <span style="color:DodgerBlue;">SELECT</span> <span style="color:#a67f59;">*</span> <span style="color:DodgerBlue;">FROM</span> logins <span style="color:DodgerBlue;">WHERE</span>
+  username <span style="color:#a67f59;">=</span>
+  <span style="color:MediumSeaGreen;">‘<u><strong>TeamA</strong></u>‘</span> <span style="color:#a67f59;">AND</span> password <span style="color:#a67f59;">=</span> <span style="color:MediumSeaGreen;">‘<u><strong>‘</strong></u></span><u><strong> <span style="color:#a67f59;">OR</span>
+  <span style="color:#905;">2</span> <span style="color:#a67f59;">BETWEEN</span> <span style="color:#905;">1</span> <span style="color:#a67f59;">AND</span> <span style="color:#905;">3</span> <span style="color:#a67f59;">OR</span> </strong></u><span style="color:MediumSeaGreen;"><u><strong>’</strong></u>‘</span>
+</p>
+<p>Again, <strong><u>bolded and underlined parts</u></strong> are attacker inputs. The fact that 1 is between 2 and 3 overrides the other false bits in this statement.</p>
 {% endif %}
 
 {% if releases >= 2 %}
